@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/d/Documents/GitHub/FrigidRain/CLion_Proj/CLTest.cpp
+stdio.h
+-
+stdlib.h
+-
+OpenCL/opencl.h
+-
+CL/cl.h
+-
+
+/cygdrive/d/Documents/GitHub/FrigidRain/CLion_Proj/bitmap_image.hpp
+algorithm
+-
+cmath
+-
+cstdlib
+-
+cstring
+-
+fstream
+-
+iostream
+-
+iterator
+-
+limits
+-
+string
+-
+vector
+-
+
+/cygdrive/d/Documents/GitHub/FrigidRain/CLion_Proj/main.cpp
+bitmap_image.hpp
+/cygdrive/d/Documents/GitHub/FrigidRain/CLion_Proj/bitmap_image.hpp
+CLTest.cpp
+/cygdrive/d/Documents/GitHub/FrigidRain/CLion_Proj/CLTest.cpp
+
