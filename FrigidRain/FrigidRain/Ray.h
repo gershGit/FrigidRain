@@ -6,9 +6,10 @@ class Ray
 public:
 	glm::vec3 origin;
 	glm::vec3 direction;
+	float mTime;
 
 	Ray();
-	Ray(const glm::vec3& a, const glm::vec3& b) { origin = a; direction = b; }
+	Ray(const glm::vec3& a, const glm::vec3& b, float ti = 0.0) { origin = a; direction = b; mTime = ti; }
 	glm::vec3 get_origin() const { return origin; }
 	glm::vec3 get_direction() const { return direction;  }
 	void set_origin(glm::vec3 vec_in) { origin = vec_in; }

@@ -143,10 +143,14 @@
     <None Include="kernel.cl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABB.h" />
     <ClInclude Include="bitmap_image.hpp" />
+    <ClInclude Include="bvh_node.h" />
     <ClInclude Include="FR_Camera.h" />
     <ClInclude Include="FR_Drawable.h" />
     <ClInclude Include="FR_Material.h" />
+    <ClInclude Include="FR_Texture.h" />
+    <ClInclude Include="Glass.h" />
     <ClInclude Include="Lambertian.h" />
     <ClInclude Include="metallic.h" />
     <ClInclude Include="Ray.h" />
