@@ -52,13 +52,31 @@ FR_Drawable* generateRandomScene(int n) {
 	Sphere* mSphere = new Sphere(glm::vec3(8, 1, 0), 1.0, mat, 0, 0, glm::vec3(4, 1, 0), glm::vec3(4, 1, 0));
 	mSphere->setName(thename);
 	list[i++] = mSphere;
+	list[i++] = new xy_rect(3, 5, 1, 3, -2, new diffuse_light(new constant_texture(glm::vec3(4, 4, 4))));
 
+	return new Scene(list, i);
+}
+
+FR_Drawable* cornell_box() {
+	FR_Drawable **list = new FR_Drawable*[7];
+	int i = 0;
+	FR_Material *red = new Lambertian(new constant_texture(glm::vec3(0.65, 0.05, 0.05)));
+	FR_Material *white = new Lambertian(new constant_texture(glm::vec3(0.73, 0.73, 0.73)));
+	FR_Material *green = new Lambertian(new constant_texture(glm::vec3(0.12, 0.45, 0.15)));
+	FR_Material *light = new Lambertian(new constant_texture(glm::vec3(15, 15, 15)));
+	list[i++] = new yz_rect(0, 555, 0, 555, 555, green);
+	list[i++] = new yz_rect(0, 555, 0, 555, 0, red);
+	list[i++] = new yz_rect(213, 343, 227, 332, 554, light);
+	list[i++] = new yz_rect(0, 555, 0, 555, 555, white);
+	list[i++] = new yz_rect(0, 555, 0, 555, 555, white);
+	list[i++] = new Sphere(glm::vec3(278, 278, 0), 1, red, 0, 0, glm::vec3(278, 278, 0), glm::vec3(278, 278, 0));
 	return new Scene(list, i);
 }
 
 glm::vec3 getBackgroundColor(const Ray& r) {
 	float t = 0.5*(glm::normalize(r.get_direction()).y + 1.0f);
 	return (1.0f - t) * glm::vec3(1.0, 1.0, 1.0) + t * glm::vec3(0.5, 0.7, 1.0);
+	//return glm::vec3(0, 0, 0);
 }
 
 glm::vec3 getRayColor(const Ray& r, FR_Drawable *scene, int depth) {
@@ -66,11 +84,12 @@ glm::vec3 getRayColor(const Ray& r, FR_Drawable *scene, int depth) {
 	if (scene->hit(r, 0.001, FLT_MAX, info)) {
 		Ray scattered;
 		glm::vec3 attenuation;
+		glm::vec3 emitted = info.mat_ptr->emitted(info.u, info.v, info.p);
 		if (depth < 5 && info.mat_ptr->scatter(r, info, attenuation, scattered)) {
-			return attenuation * getRayColor(scattered, scene, depth + 1);
+			return emitted + attenuation * getRayColor(scattered, scene, depth + 1);
 		}
 		else {
-			return glm::vec3(0);
+			return emitted;
 		}
 	}
 	else {
@@ -119,26 +138,28 @@ int render(FR_Camera &camera, FR_Drawable *scene, int samples) {
 int main(int argc, char** argv) {
 	srand(time(NULL));
 
-	FR_Camera mainCam = FR_Camera(PERSPECTIVE, 20, 0.01, 150, 75);
+	FR_Camera mainCam = FR_Camera(PERSPECTIVE, 40, 0.01, 75, 100);
 	mainCam.position = glm::vec3(13, 2, 3);
 	mainCam.eulerRotations = glm::vec3(-45,-30,0);
 	mainCam.setCameraLookAt(glm::vec3(0, 0, 0));
-	mainCam.setAperature(0.01);
+	mainCam.setAperature(0.0);
 	mainCam.setTime(0.0, 1.0);
 	mainCam.generateRays();
 
 	
-	FR_Drawable *list[5];/*
-	list[0] = new Sphere(glm::vec3(0, 0, -1), 0.5f, new Lambertian(glm::vec3(0.8f,0.3f,0.3f)), 0, 0, center, center);
-	list[1] = new Sphere(glm::vec3(0, -100.5, -1), 100, new Lambertian(glm::vec3(0.8f, 0.8f, 0.0f)));
-	list[2] = new Sphere(glm::vec3(1, 0, -1), 0.5f, new Metallic(glm::vec3(0.8f, 0.6f, 0.2f), 0.1f));
-	list[3] = new Sphere(glm::vec3(-1, 0, -1), 0.5f, new Glass(1.5f));
-	list[4] = new Sphere(glm::vec3(-1, 0, -1), -0.45f, new Glass(1.5f));*/
-	FR_Drawable *world = new Scene(list, 4);
+	FR_Drawable *list[6];
+	list[0] = new Sphere(glm::vec3(0, 0, -1), 0.5f, new Lambertian(new constant_texture(glm::vec3(0.8f,0.3f,0.3f))), 0, 0, glm::vec3(0, 0, -1), glm::vec3(0, 0, -1));
+	list[1] = new Sphere(glm::vec3(0, -100.5, -1), 100, new Lambertian(new constant_texture(glm::vec3(0.8f, 0.8f, 0.0f))), 0, 0, glm::vec3(0,-100.5, -1), glm::vec3(0, -100.5, -1));
+	list[2] = new Sphere(glm::vec3(1, 0, -1), 0.5f, new Metallic(new constant_texture(glm::vec3(0.8f, 0.6f, 0.2f)), 0.1f), 0, 0, glm::vec3(1, 0, -1), glm::vec3(1, 0, -1));
+	list[3] = new Sphere(glm::vec3(-1, 0, -1), 0.5f, new Glass(1.5f), 0, 0, glm::vec3(-1, 0, -1), glm::vec3(-1, 0, -1));
+	list[4] = new Sphere(glm::vec3(-1, 0, -1), -0.45f, new Glass(1.5f), 0, 0, glm::vec3(-1, 0, -1), glm::vec3(-1, 0, -1));
+	list[5] = new xy_rect(3, 5, 1, 3, -2, new diffuse_light(new constant_texture(glm::vec3(4, 4, 4))));
+	FR_Drawable *world = new Scene(list, 6);
 	world = generateRandomScene(500);
+	//world = cornell_box();
 
 	std::cout << "Rendering..." << std::endl;
-	render(mainCam, world, 8);
+	render(mainCam, world, 16);
 	std::cout << "Finished" << std::endl;
 
 	rgb_t testCol = make_colour(255, 120, 255);

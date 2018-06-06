@@ -27,4 +27,15 @@ glm::vec3 random_in_unit_sphere() {
 class FR_Material {
 public:
 	virtual bool scatter(const Ray &r_in, const hit_info &info, glm::vec3 &attenuation, Ray& scattered) const = 0;
+	virtual glm::vec3 emitted(float u, float v, const glm::vec3 &p) const {
+		return glm::vec3(0, 0, 0);
+	}
+};
+
+class diffuse_light : public FR_Material {
+public:
+	texture * emit;
+	diffuse_light(texture *a) : emit(a) {}
+	virtual bool scatter(const Ray &r_in, const hit_info &info, glm::vec3 &attenuation, Ray& scattered) const { return false; }
+	virtual glm::vec3 emitted(float u, float v, const glm::vec3 &p) const { return emit->value(u, v, p); }
 };
