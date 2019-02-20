@@ -2,6 +2,7 @@
 #define _SCL_SECURE_NO_WARNINGS
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include <thread>
 #include "bitmap_image.hpp"
 #include "glm/glm.hpp"
 #include "Ray.h"
@@ -17,6 +18,8 @@
 #include "metallic.h"
 #include "Glass.h"
 #include <iomanip>
+
+int logical_processors = 1;
 
 FR_Drawable* generateRandomScene(int n) {
 	int nx, ny, nn;
@@ -101,6 +104,10 @@ int render(FR_Camera &camera, FR_Drawable *scene, int samples) {
 	clock_t begin = clock();
 	clock_t current;
 	int lastPercentage = 0;
+
+	//TODO multi-threading here
+
+
 	for (int y = 0; y < camera.rays.size(); y++) {
 		double elapsed = double(clock() - begin) / CLOCKS_PER_SEC;
 		float decimal = ((float)y / (float)camera.rays.size()) * 100;
@@ -137,6 +144,9 @@ int render(FR_Camera &camera, FR_Drawable *scene, int samples) {
 
 int main(int argc, char** argv) {
 	srand(time(NULL));
+
+	logical_processors = std::thread::hardware_concurrency()==0 ? 1 : std::thread::hardware_concurrency();
+	std::cout << "Detected " << logical_processors << " logical processors" << std::endl;
 
 	FR_Camera mainCam = FR_Camera(PERSPECTIVE, 40, 0.01, 200, 150);
 	mainCam.position = glm::vec3(13, 2, 3);
