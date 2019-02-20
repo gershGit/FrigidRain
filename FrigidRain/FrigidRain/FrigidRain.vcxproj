@@ -90,7 +90,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Documents\Visual Studio 2017\Libraries\glm;D:\Documents\Visual Studio 2017\Libraries\stb-master;C:\Program Files %28x86%29\AMD APP SDK\3.0\include;D:\Documents\Visual Studio 2017\Libraries\AMD APP SDK\3.0\include;D:\Documents\Visual Studio 2017\Libraries\AMD APP SDK\3.0\include\SDKUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Gersh\Documents\GitHub\IceCapsNew\Headers;C:\Users\Gersh\Documents\Visual Studio 2017\Libraries\glm;D:\Documents\Visual Studio 2017\Libraries\glm;D:\Documents\Visual Studio 2017\Libraries\stb-master;C:\Program Files %28x86%29\AMD APP SDK\3.0\include;D:\Documents\Visual Studio 2017\Libraries\AMD APP SDK\3.0\include;D:\Documents\Visual Studio 2017\Libraries\AMD APP SDK\3.0\include\SDKUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CL_USE_DEPRECATED_OPENCL_1_2_APIS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -124,7 +124,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Documents\Visual Studio 2017\Libraries\glm;D:\Documents\Visual Studio 2017\Libraries\stb-master;C:\Program Files %28x86%29\AMD APP SDK\3.0\include;D:\Documents\Visual Studio 2017\Libraries\AMD APP SDK\3.0\include;D:\Documents\Visual Studio 2017\Libraries\AMD APP SDK\3.0\include\SDKUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Gersh\Documents\GitHub\IceCapsNew\Headers;C:\Users\Gersh\Documents\Visual Studio 2017\Libraries\glm;D:\Documents\Visual Studio 2017\Libraries\glm;D:\Documents\Visual Studio 2017\Libraries\stb-master;C:\Program Files %28x86%29\AMD APP SDK\3.0\include;D:\Documents\Visual Studio 2017\Libraries\AMD APP SDK\3.0\include;D:\Documents\Visual Studio 2017\Libraries\AMD APP SDK\3.0\include\SDKUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CL_USE_DEPRECATED_OPENCL_1_2_APIS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

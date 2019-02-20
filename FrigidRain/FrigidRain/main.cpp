@@ -138,7 +138,7 @@ int render(FR_Camera &camera, FR_Drawable *scene, int samples) {
 int main(int argc, char** argv) {
 	srand(time(NULL));
 
-	FR_Camera mainCam = FR_Camera(PERSPECTIVE, 40, 0.01, 75, 100);
+	FR_Camera mainCam = FR_Camera(PERSPECTIVE, 40, 0.01, 200, 150);
 	mainCam.position = glm::vec3(13, 2, 3);
 	mainCam.eulerRotations = glm::vec3(-45,-30,0);
 	mainCam.setCameraLookAt(glm::vec3(0, 0, 0));
